@@ -1,0 +1,76 @@
+#!/bin/bash
+
+convert.celsius () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input * 1.8 + 32}') F"
+}
+
+convert.kelvin () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input * 1.8 - 459.67}') F"
+}
+
+convert.kilometer () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input / 1.609344}') mi"
+}
+
+convert.meter () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input / 0.3048}') ft"
+}
+
+convert.centimeter () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input / 2.54}') in"
+}
+
+convert.kilogram () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input / 0.45359237}') lb"
+}
+
+convert.stone () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input * 14}') lb"
+	echo "Who the hell still uses stone?"
+}
+
+convert.liter () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input * 0.2641720524}') gal"
+}
+
+convert.kmperhour () {
+	local input=$1
+	echo "$(awk -vinput="$input" 'BEGIN{print input * 0.6213711922}') mph"
+}
+
+get.unit () {
+	local arg=$1
+	arg="${arg//[[:punct:]]/}"
+	echo "${arg//[[:digit:]]/}"
+}
+
+get.value () {
+	local arg=$1
+	echo "${arg//[[:alpha]]/}"
+}
+
+unit=$(get.unit $1)
+value=$(get.value $1)
+
+shopt -s nocasematch
+case $unit in
+	c)	convert.celsius "$value";;
+	k)	convert.kelvin "$value";;
+	km)	convert.kilometer "$value";;
+	m)	convert.meter "$value";;
+	cm)	convert.centimeter "$value";;
+	kg)	convert.kilogram "$value";;
+	l)	convert.liter "$value";;
+	st)	convert.stone "$value";;
+	kmh)	convert.kmperhour "$value";;
+	*)	echo "ERROR! Unit is not supported!" >&2;;
+esac
+shopt -u nocasematch
