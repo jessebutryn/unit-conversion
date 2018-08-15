@@ -1,61 +1,11 @@
 #!/bin/bash
 
-convert.celsius () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input * 1.8 + 32}') F"
-}
+if [[ -f "${0%/*}/conversions" ]]; then
+	. "${0%/*}/conversions"
+else
+	echo "ERROR! Cannot find conversions file." >&2
+fi
 
-convert.kelvin () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input * 1.8 - 459.67}') F"
-}
-
-convert.kilometer () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input / 1.609344}') mi"
-}
-
-convert.meter () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input / 0.3048}') ft"
-}
-
-convert.centimeter () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input / 2.54}') in"
-}
-
-convert.kilogram () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input / 0.45359237}') lb"
-}
-
-convert.stone () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input * 14}') lb"
-	echo "Who the hell still uses stone?"
-}
-
-convert.liter () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input * 0.2641720524}') gal"
-}
-
-convert.kmperhour () {
-	local input=$1
-	echo "$(awk -vinput="$input" 'BEGIN{print input * 0.6213711922}') mph"
-}
-
-get.unit () {
-	local arg=$1
-	arg="${arg//[[:punct:]]/}"
-	echo "${arg//[[:digit:]]/}"
-}
-
-get.value () {
-	local arg=$1
-	echo "${arg//[[:alpha]]/}"
-}
 
 unit=$(get.unit $1)
 value=$(get.value $1)
