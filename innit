@@ -19,7 +19,7 @@ case $unit in
 	lb)	convert.pound "$value";;
 	gal)	convert.gallon "$value";;
 	mph)	convert.mileperhour "$value";;
-	acre) convert.acre "$value";;
+	acre)	convert.acre "$value";;
 	*)	echo "ERROR! Unit is not supported!" >&2;;
 esac
 shopt -u nocasematch

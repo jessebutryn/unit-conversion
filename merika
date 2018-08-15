@@ -6,7 +6,6 @@ else
 	echo "ERROR! Cannot find conversions file." >&2
 fi
 
-
 unit=$(get.unit $1)
 value=$(get.value $1)
 

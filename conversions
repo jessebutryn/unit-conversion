@@ -112,4 +112,3 @@ convert.acre () {
 	local input=$1
 	echo "$(awk -vinput="$input" 'BEGIN{print input / 2.4711}') ha"
 }
-
